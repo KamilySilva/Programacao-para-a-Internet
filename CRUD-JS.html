@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuários</title>
+</head>
+<body>
+    <script>
+        class Usuário{
+            constructor(nome, telefone){
+                this.nome = nome;
+                this.telefone = telefone;
+            }
+        }
+
+        const lista = [];
+        var opção = 0;
+
+        do{
+            opção = prompt('Escolha uma opção:\n1 - Cadastrar novo usuário \n2 - Buscar usuário \n3 - Listar usuários \n4 - Remover usuário \n5 - Atualizar usuário \n0 - Sair');
+            if(opção == 1){
+                cadastrar()
+            }else if(opção == 2){
+                buscar()
+            }else if(opção == 3){
+                listar()
+            }else if(opção == 4){
+                remover()
+            }else if(opção == 5){
+                atualizar()
+            }
+        }while(opção != 0)
+
+        function cadastrar(){
+            const nome = prompt("Informe o nome do usuário:")
+            const telefone = prompt("Informe o telefone do usuário:")
+            const usuário = new Usuário(nome,telefone)
+            const verif = lista.find(l => l.nome == nome)
+            if(verif == undefined){
+                lista.push(usuário)
+                alert('Usuário cadastrado!')
+            }else{
+                alert('Este usuário já exite!')
+            }
+        }
+
+        function buscar(){
+            const nome = prompt("Informe o nome do usuário que está buscando:")
+            const usuário = lista.find(l => l.nome == nome)
+            if(usuário != undefined){
+                var texto = `Nome: ${usuário.nome} \nTelefone: ${usuário.telefone}`
+                alert(texto)
+            }else{
+                alert('Usuário não encontrado!')
+            }
+        }
+
+        function listar(){
+            var texto = "";
+            lista.forEach(usuário => {
+                texto += `Nome: ${usuário.nome} \nTelefone: ${usuário.telefone}\n\n`;
+            });
+            alert(texto);
+        }
+
+        function remover(){
+            const nome = prompt("Informe o nome do usuário que deseja remover:")
+            const index = lista.findIndex(usuário => usuário.nome == nome)
+            if(index != -1){
+                lista.splice(index,1)
+                alert('Usuário removido com sucesso!')
+            }else{
+                alert('Usuário não encontrado!')
+            }
+        }
+
+        function atualizar(){
+            const nome = prompt("Informe o nome do usuário que deseja atualizar:")
+            const usuário = lista.find(usuário => usuário.nome == nome)
+            if(usuário != undefined){
+                const res = prompt('O que você deseja alterar?\n1 - Nome\n2 - Telefone\n3 - Nome e Telefone')
+                if(res == 1){
+                    const novoNome = prompt('Informe o novo nome do usuário:')
+                    usuário.nome = novoNome
+                    alert('Usuário atualizado com sucesso!')
+                }else if(res == 2){
+                    const novoTelefone = prompt('Informe o novo telefone do usúário:')
+                    usuário.telefone = novoTelefone
+                    alert('Usuário atualizado com sucesso!')
+                }else if(res == 3){
+                    const novoNome = prompt('Informe o novo nome do usuário:')
+                    const novoTelefone = prompt('Informe o novo telefone do usúário:')
+                    alert('Usuário atualizado com sucesso!')
+                    usuário.nome = novoNome
+                    usuário.telefone = novoTelefone
+                }else{
+                    alert('Opção inválida!')
+                }
+            }else{
+                alert('Usuário não encontrado!')
+            }
+        }
+    </script>
+</body>
+</html>
